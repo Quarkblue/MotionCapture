@@ -1,11 +1,11 @@
 import cv2
-import pyautogui
 from time import time
 from math import hypot
 import mediapipe as mp
 import matplotlib.pyplot as plt
 
 #initialise mediapipe
+
 
 mp_pose = mp.solutions.pose
 
@@ -96,6 +96,7 @@ def checkLeftRight(image, results):
     
     # Return the person's horizontal position.
     return horizontal_position
+
 
 # Initialize the VideoCapture object to read from the webcam.
 camera_video = cv2.VideoCapture(0)
