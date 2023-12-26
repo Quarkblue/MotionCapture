@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 //                }
 
                 dynamic testModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-                testModule.SingleTakeClassification();
+                testModule.videoClassification();
                 
 
                 //using PyScope scope = Py.CreateScope();
