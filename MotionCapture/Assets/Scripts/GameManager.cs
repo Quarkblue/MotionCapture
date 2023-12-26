@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     {
 
             using var _ = Py.GIL();
-            dynamic MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+            MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
 
             //using (PyScope scope = Py.CreateScope())
             //{
