@@ -18,39 +18,41 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-            using (Py.GIL())
-            {
-                //using (PyScope scope = Py.CreateScope())
-                //{
-                //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-                //    scope.Exec(MoCap.SingleTakeClassification());
-                //    string position = scope.Get<string>("position");
-                //    Debug.Log(position);
-                //}
+
+            using var _ = Py.GIL();
+            dynamic MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+
+            //using (PyScope scope = Py.CreateScope())
+            //{
+            //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+            //    scope.Exec(MoCap.SingleTakeClassification());
+            //    string position = scope.Get<string>("position");
+            //    Debug.Log(position);
+            //}
 
 
-//                using (scope)
-//                {
-//                    MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+            //                using (scope)
+            //                {
+            //                    MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
 
-//                    scope.Exec(MoCapModule.SingleTakeClassification());
+            //                    scope.Exec(MoCapModule.SingleTakeClassification());
 
-//                    scope.Exec(@"
-//position = 'right'
+            //                    scope.Exec(@"
+            //position = 'right'
 
-//def hello():
-//    return position
-//");
-//                    dynamic hello = scope.Get(name: "hello");
-//                    Debug.Log(hello());
-//                }
+            //def hello():
+            //    return position
+            //");
+            //                    dynamic hello = scope.Get(name: "hello");
+            //                    Debug.Log(hello());
+            //                }
 
-                //using PyScope scope = Py.CreateScope();
-                //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-                //scope.Exec(MoCap.SingleTakeClassification());
-                //string position = scope.Get<string>("position");
-                //Debug.Log(position);
-            }
+            //using PyScope scope = Py.CreateScope();
+            //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+            //scope.Exec(MoCap.SingleTakeClassification());
+            //string position = scope.Get<string>("position");
+            //Debug.Log(position);
+
         //finally
         //{
         //    PythonEngine.Shutdown();
@@ -60,8 +62,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        dynamic MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
         dynamic position = MoCapModule.videoClassification();
 
         Debug.Log(position);
