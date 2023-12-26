@@ -18,13 +18,8 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        try
-        {
             using (Py.GIL())
             {
-                PyScope scope = Py.CreateScope();
-
-
                 //using (PyScope scope = Py.CreateScope())
                 //{
                 //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
@@ -50,26 +45,31 @@ public class GameManager : MonoBehaviour
 //                    Debug.Log(hello());
 //                }
 
-                dynamic testModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-                testModule.videoClassification();
-                
-
                 //using PyScope scope = Py.CreateScope();
                 //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
                 //scope.Exec(MoCap.SingleTakeClassification());
                 //string position = scope.Get<string>("position");
                 //Debug.Log(position);
             }
-        }
-        finally
-        {
-            PythonEngine.Shutdown();
-        }
+        //finally
+        //{
+        //    PythonEngine.Shutdown();
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        dynamic MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+        dynamic position = MoCapModule.videoClassification();
+
+        Debug.Log(position);
     }
+
+    private void OnDisable()
+    {
+        PythonEngine.Shutdown();
+    }
+
 }

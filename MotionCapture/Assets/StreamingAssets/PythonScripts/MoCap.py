@@ -100,11 +100,12 @@ def checkLeftRight(image, results):
 import os
 import glob
 
+camera_video = cv2.VideoCapture(0)
+camera_video.set(3,1280)
+camera_video.set(4,960)
+
 def SingleTakeClassification():
-    camera_video = cv2.VideoCapture(0)
-    camera_video.set(3,1280)
-    camera_video.set(4,960)
-    
+
     ok, frame = camera_video.read()
     
     if not ok:
