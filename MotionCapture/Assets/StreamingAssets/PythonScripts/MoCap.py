@@ -153,7 +153,7 @@ def videoClassification():
             position = checkLeftRight(frame, results)
             
             # Print the position to the console.
-            print(position)
+            return position
                     
         # Wait for 1ms. If a a key is pressed, retreive the ASCII code of the key.
         k = cv2.waitKey(1) & 0xFF

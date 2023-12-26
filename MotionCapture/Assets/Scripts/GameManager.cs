@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
         using (Py.GIL())
         {
             using PyScope scope = Py.CreateScope();
-            MoCap = PyModule.FromString("SingleTakeClassification", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-            scope.Exec(MoCap.SingleTakeClassification());
+            MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+            scope.Exec(MoCap.videoClassification());
             string position = scope.Get<string>("position");
             Debug.Log(position);
         }
