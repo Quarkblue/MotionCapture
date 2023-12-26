@@ -1,4 +1,3 @@
-
 from unittest import result
 import cv2
 from time import time
@@ -120,6 +119,7 @@ def SingleTakeClassification():
     if results.pose_landmarks:
         
         position = checkLeftRight(frame, results)
+        # position = "right"
         
         return position
     
@@ -163,4 +163,4 @@ def videoClassification():
             break
 
 
-# SingleTakeclassification()
+print(SingleTakeClassification())

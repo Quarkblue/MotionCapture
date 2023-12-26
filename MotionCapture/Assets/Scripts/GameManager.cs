@@ -7,7 +7,7 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    dynamic MoCap;
+    dynamic MoCapModule;
 
     private void OnEnable()
     {
@@ -18,13 +18,52 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        using (Py.GIL())
+        try
         {
-            using PyScope scope = Py.CreateScope();
-            MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-            scope.Exec(MoCap.videoClassification());
-            string position = scope.Get<string>("position");
-            Debug.Log(position);
+            using (Py.GIL())
+            {
+                PyScope scope = Py.CreateScope();
+
+
+                //using (PyScope scope = Py.CreateScope())
+                //{
+                //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+                //    scope.Exec(MoCap.SingleTakeClassification());
+                //    string position = scope.Get<string>("position");
+                //    Debug.Log(position);
+                //}
+
+
+//                using (scope)
+//                {
+//                    MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+
+//                    scope.Exec(MoCapModule.SingleTakeClassification());
+
+//                    scope.Exec(@"
+//position = 'right'
+
+//def hello():
+//    return position
+//");
+//                    dynamic hello = scope.Get(name: "hello");
+//                    Debug.Log(hello());
+//                }
+
+                dynamic testModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+                testModule.SingleTakeClassification();
+                
+
+                //using PyScope scope = Py.CreateScope();
+                //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+                //scope.Exec(MoCap.SingleTakeClassification());
+                //string position = scope.Get<string>("position");
+                //Debug.Log(position);
+            }
+        }
+        finally
+        {
+            PythonEngine.Shutdown();
         }
     }
 
