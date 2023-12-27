@@ -4,36 +4,41 @@ using UnityEngine;
 
 public class Jumping : MonoBehaviour
 {
-
-    public float speed = 10f;
-    public Rigidbody rb;
+    public float jumpForce = 5f; // Adjust this value to control the jump height
+    public float jumpCooldown = 1f; // Adjust this value to set the jump cooldown time
+    private float lastJumpTime;
     private bool isJumping;
-    public bool comingDown = false;
     public Animator animator;
+    public Rigidbody rb;
 
-    // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         isJumping = false;
+        lastJumpTime = 0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isJumping == false)
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastJumpTime > jumpCooldown)
         {
-            animator.SetBool("isJumping", true);
-            rb.velocity = new Vector3(0, 5, 0);
-            isJumping = true;
+            Jump();
         }
-        else
-        {
-            animator.SetBool("isJumping", false);
-            isJumping = false;
-        }
+    }
 
+    void Jump()
+    {
+        animator.SetBool("isJumping", true);
+        rb.velocity = new Vector3(0, jumpForce, 0);
+        isJumping = true;
+        lastJumpTime = Time.time;
+        Invoke("EndJumpAnimation", 0.5f); // Adjust the delay based on your animation length
+    }
+
+    void EndJumpAnimation()
+    {
+        animator.SetBool("isJumping", false);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GenerateLevel : MonoBehaviour
 {
     public GameObject[] section;
-    public int zPos = 20;
-        
+    private int zPos = 10;
+
     public bool creatingSection = false;
     public int secNum;
 
@@ -25,7 +24,10 @@ public class GenerateLevel : MonoBehaviour
         secNum = Random.Range(0, 3);
         Instantiate(section[secNum], new Vector3(0, 0, zPos), Quaternion.identity);
         zPos += 20;
-        yield return new WaitForSeconds(2);
+
+        // Adjust the WaitForSeconds duration to make the level generation faster
+        yield return new WaitForSeconds(0.5f); // Example: Decreased waiting time to 0.5 seconds
+
         creatingSection = false;
     }
 }
