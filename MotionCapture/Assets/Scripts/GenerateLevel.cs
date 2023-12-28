@@ -7,12 +7,12 @@ public class GenerateLevel : MonoBehaviour
 {
     public GameObject[] section;
     public GameObject[] obstaclePrefabs;
-    private float roadWidth = 10f; // Adjust this based on your road width
+    private float roadWidth = 10f; 
     private int zPos = 10;
     private bool creatingSection = false;
     private int secNum;
 
-    // Keep track of the last spawned obstacle position
+    
     private Vector3 lastObstaclePosition = Vector3.zero;
 
     void Update()
@@ -30,7 +30,7 @@ public class GenerateLevel : MonoBehaviour
         Instantiate(section[secNum], new Vector3(0, 0, zPos), Quaternion.identity);
         zPos += 20;
 
-        // Spawn obstacles on the ground
+        
         SpawnObstacles();
 
         yield return new WaitForSeconds(0.5f);
@@ -44,13 +44,12 @@ public class GenerateLevel : MonoBehaviour
 
         foreach (GameObject obstaclePrefab in obstaclePrefabs)
         {
-            // Try to find a valid position for the obstacle
+            
             Vector3 obstaclePosition = FindValidObstaclePosition(spawnRange);
 
-            // Spawn the obstacle
+            
             Instantiate(obstaclePrefab, obstaclePosition, Quaternion.identity);
 
-            // Update the last spawned obstacle position
             lastObstaclePosition = obstaclePosition;
         }
     }
@@ -61,9 +60,9 @@ public class GenerateLevel : MonoBehaviour
 
         do
         {
-            // Generate a random position within the spawn range
+            
             float randomX = Random.Range(-spawnRange, spawnRange);
-            float obstacleZPos = zPos + Random.Range(5f, 10f); // Adjust the range based on your needs
+            float obstacleZPos = zPos + Random.Range(5f, 10f); 
 
             obstaclePosition = new Vector3(randomX, 0.5f, obstacleZPos);
         } while (IsTooCloseToLastObstacle(obstaclePosition));

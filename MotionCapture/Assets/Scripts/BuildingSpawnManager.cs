@@ -29,12 +29,12 @@ public class BuildingSpawnManager : MonoBehaviour
 
     void SpawnBuilding()
     {
-        float randomX = Random.Range(-5f, 5f); // Adjust based on your scene
+        float randomX = Random.Range(-5f, 5f); 
         Vector3 spawnPosition = new Vector3(randomX, 0f, player.position.z + spawnDistance);
 
         GameObject newBuilding = Instantiate(RandomBuildingPrefab(), spawnPosition, Quaternion.identity);
 
-        // Adjust destroy distance based on your needs
+       
         StartCoroutine(DestroyBuilding(newBuilding, player.position.z - destroyDistance));
     }
 
