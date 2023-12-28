@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2643505, g: 0.27495274, b: 0.30022797, a: 1}
+  m_IndirectSpecularColor: {r: 0.77765745, g: 0.8070908, b: 0.87886846, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1374,7 +1374,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514540058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -112}
+  m_LocalPosition: {x: 0, y: 0, z: -107.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1383,7 +1383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44, y: 82}
+  m_AnchoredPosition: {x: 44, y: 59.2}
   m_SizeDelta: {x: 121.38202, y: 30.46698}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514540060
@@ -1415,8 +1415,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2369,14 +2369,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.08280819, y: 0, z: 0, w: 0.9965655}
-  m_LocalPosition: {x: -0.1, y: 2.51, z: -3.66}
+  m_LocalRotation: {x: 0.09410833, y: 0, z: 0, w: 0.995562}
+  m_LocalPosition: {x: -0.1, y: 2.7, z: -3.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1480213032}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 9.5, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.8, y: 0, z: 0}
 --- !u!1001 &963457175
 PrefabInstance:
   m_ObjectHideFlags: 0
