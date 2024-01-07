@@ -159,6 +159,7 @@ def videoClassification():
             position = checkLeftRight(frame, results)
             
             # Print the position to the console.
+            print("sending data to unity =>", position)
             sock.sendto(str.encode(str("Hello from python")), serverAddressPort)
             sock.sendto(str.encode(str(position)), serverAddressPort)
 

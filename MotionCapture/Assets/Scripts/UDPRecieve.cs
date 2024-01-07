@@ -22,7 +22,7 @@ public class UDPRecieve : MonoBehaviour
         recieveThread = new Thread(new ThreadStart(RecieveData));
         recieveThread.IsBackground = true;
         recieveThread.Start();
-        //StartCoroutine(waitAndStart());
+        startRecieve = true;
     }
 
     // Update is called once per frame
@@ -31,11 +31,6 @@ public class UDPRecieve : MonoBehaviour
         
     }
 
-    private IEnumerator waitAndStart()
-    {
-        yield return new WaitForSeconds(3);
-        startRecieve = true;
-    }
 
     private void RecieveData()
     {
