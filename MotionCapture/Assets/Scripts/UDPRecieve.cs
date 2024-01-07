@@ -38,15 +38,15 @@ public class UDPRecieve : MonoBehaviour
         client = new UdpClient(port);
         while (startRecieve)
         {
-            Debug.Log("while loop started");
             if (GameManager.Instance.StartRecieving)
             {
-                Debug.Log("started recieving");
                 try
                 {
                     IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                     byte[] dataByte = client.Receive(ref anyIP);
                     data = Encoding.UTF8.GetString(dataByte);
+
+                    GameManager.Instance.movement = data;
 
                     if (printToConsole)
                     {

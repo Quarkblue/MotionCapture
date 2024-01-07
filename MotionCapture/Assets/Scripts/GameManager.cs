@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
     public bool StartRecieving = true;
     public static GameManager Instance;
     public bool stopRecieving = false;
+    public string movement;
+    public string prevMove;
+
 
     private void OnEnable()
     {
-        //Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/Python-3.7.9/python37.dll";
-        //PythonEngine.Initialize();
+        EventManager.OnRightBend += MoveRight;
+        EventManager.OnLeftBend += MoveLeft;
+        EventManager.OnCenterBend += MoveCenter;
+
     }
 
     //Start is called before the first frame update
@@ -32,18 +37,53 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
 
-
+        prevMove = "";
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(movement == "Center" && movement != prevMove)
+        {
+            EventManager.CenterBendEvent();
+        }else if(movement == "Left" && movement != prevMove)
+        {
+            EventManager.LeftBendEvent();
+        }else if(movement == "Right" && movement != prevMove)
+        {
+            EventManager.RightBendEvent();
+        }
     }
+
 
     private void OnDisable()
     {
         stopRecieving = true;
+        EventManager.OnRightBend -= MoveRight;
+        EventManager.OnLeftBend -= MoveLeft;
+        EventManager.OnCenterBend -= MoveCenter;
     }
+
+
+    private void MoveLeft()
+    {
+        Debug.Log("Moving left");
+        prevMove = "Left";
+    }
+
+    private void MoveRight()
+    {
+        Debug.Log("Moving right");
+        prevMove = "Right";
+    }
+
+    private void MoveCenter()
+    {
+        Debug.Log("Moving center");
+        prevMove = "Center";
+    }
+
+
 
 }
