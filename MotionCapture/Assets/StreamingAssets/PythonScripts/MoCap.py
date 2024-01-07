@@ -1,9 +1,10 @@
 from unittest import result
 import cv2
-from time import time
+import time
 # from math import hypot
 import mediapipe as mp
 import matplotlib.pyplot as plt
+import socket
 
 #initialise mediapipe
 
@@ -17,7 +18,11 @@ pose_video = mp_pose.Pose(static_image_mode=False, model_complexity=1, min_detec
                           min_tracking_confidence=0.7)
 
 # Initialize mediapipe drawing class.
-mp_drawing = mp.solutions.drawing_utils 
+mp_drawing = mp.solutions.drawing_utils
+
+#init udp socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverAddressPort = ("127.0.0.1", 5052)
 
 
 def detectPose(image, pose, draw=False, display=False):
@@ -154,7 +159,9 @@ def videoClassification():
             position = checkLeftRight(frame, results)
             
             # Print the position to the console.
-            return position
+            sock.sendto(str.encode(str("Hello from python")), serverAddressPort)
+            sock.sendto(str.encode(str(position)), serverAddressPort)
+
                     
         # Wait for 1ms. If a a key is pressed, retreive the ASCII code of the key.
         k = cv2.waitKey(1) & 0xFF
@@ -164,4 +171,4 @@ def videoClassification():
             break
 
 
-#print(videoClassification())
+videoClassification()

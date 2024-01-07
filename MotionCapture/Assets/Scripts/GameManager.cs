@@ -4,10 +4,15 @@ using UnityEngine;
 using Python.Runtime;
 using System;
 using System.IO;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
     dynamic MoCapModule;
+
+    public bool StartRecieving = true;
+    public static GameManager Instance;
+    public bool stopRecieving = false;
 
     private void OnEnable()
     {
@@ -18,58 +23,71 @@ public class GameManager : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-
-            using var _ = Py.GIL();
-            MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-
-            //using (PyScope scope = Py.CreateScope())
-            //{
-            //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-            //    scope.Exec(MoCap.SingleTakeClassification());
-            //    string position = scope.Get<string>("position");
-            //    Debug.Log(position);
-            //}
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
 
 
-            //                using (scope)
-            //                {
-            //                    MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+        using var _ = Py.GIL();
+        MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
 
-            //                    scope.Exec(MoCapModule.SingleTakeClassification());
+        Debug.Log("Starting video classification");
+        MoCapModule.videoClassification();
 
-            //                    scope.Exec(@"
-            //position = 'right'
+        StartRecieving = true;
+        Debug.Log("Starting UDP recieving");
 
-            //def hello():
-            //    return position
-            //");
-            //                    dynamic hello = scope.Get(name: "hello");
-            //                    Debug.Log(hello());
-            //                }
-
-            //using PyScope scope = Py.CreateScope();
-            //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
-            //scope.Exec(MoCap.SingleTakeClassification());
-            //string position = scope.Get<string>("position");
-            //Debug.Log(position);
-
-        //finally
+        //using (PyScope scope = Py.CreateScope())
         //{
-        //    PythonEngine.Shutdown();
+        //    MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+        //    scope.Exec(MoCap.SingleTakeClassification());
+        //    string position = scope.Get<string>("position");
+        //    Debug.Log(position);
         //}
+
+
+        //                using (scope)
+        //                {
+        //                    MoCapModule = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+
+        //                    scope.Exec(MoCapModule.SingleTakeClassification());
+
+        //                    scope.Exec(@"
+        //position = 'right'
+
+        //def hello():
+        //    return position
+        //");
+        //                    dynamic hello = scope.Get(name: "hello");
+        //                    Debug.Log(hello());
+        //                }
+
+        //using PyScope scope = Py.CreateScope();
+        //MoCap = PyModule.FromString("MoCap", File.ReadAllText(Application.dataPath + "/StreamingAssets/PythonScripts/MoCap.py"));
+        //scope.Exec(MoCap.SingleTakeClassification());
+        //string position = scope.Get<string>("position");
+        //Debug.Log(position);
+
+    //finally
+    //{
+    //    PythonEngine.Shutdown();
+    //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        dynamic position = MoCapModule.videoClassification();
-
-        Debug.Log(position);
     }
 
     private void OnDisable()
     {
         PythonEngine.Shutdown();
+        stopRecieving = true;
     }
 
 }
