@@ -2449,7 +2449,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 406c6099c3e2c804c8789845a39f913e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.099999994
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 406c6099c3e2c804c8789845a39f913e,
         type: 3}
@@ -2696,7 +2696,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480213031}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d326408afdab7543856dac22a40f8f2, type: 3}
   m_Name: 
@@ -2773,6 +2773,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+--- !u!114 &1480213041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480213031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba9f9be46c6869479b40ac84a62c3bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  laneWidth: 2.5
 --- !u!1 &1520529727
 GameObject:
   m_ObjectHideFlags: 0
