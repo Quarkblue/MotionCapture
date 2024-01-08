@@ -29,7 +29,7 @@ public class GenerateLevel : MonoBehaviour
     IEnumerator GenerateSection()
     {
         int secNum = Random.Range(0, sectionPrefabs.Length);
-        GameObject newSection = Instantiate(sectionPrefabs[secNum], new Vector3(0, 0, zPos), Quaternion.identity);
+        GameObject newSection = Instantiate(sectionPrefabs[secNum], new Vector3(3, 0, zPos), Quaternion.identity);
         generatedSections.Add(newSection);
 
         // Adjust zPos for the next section
