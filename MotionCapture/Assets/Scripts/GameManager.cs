@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Python.Runtime;
 using System;
 using System.IO;
 using Unity.VisualScripting;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,12 +19,31 @@ public class GameManager : MonoBehaviour
     public string prevMove;
 
 
+    public static GameManager instance;
+
+    public TextMeshProUGUI scoreText;
+    private int score = 0;
+
+    public GameObject[] vegetablePrefabs; 
+
     private void OnEnable()
     {
         EventManager.OnRightBend += MoveRight;
         EventManager.OnLeftBend += MoveLeft;
         EventManager.OnCenterBend += MoveCenter;
 
+    }
+    
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     //Start is called before the first frame update
@@ -38,6 +59,8 @@ public class GameManager : MonoBehaviour
         }
 
         prevMove = "";
+        
+        StartCoroutine(SpawnVegetables());
         
     }
 
@@ -64,6 +87,48 @@ public class GameManager : MonoBehaviour
         EventManager.OnLeftBend -= MoveLeft;
         EventManager.OnCenterBend -= MoveCenter;
     }
+    
+    private IEnumerator SpawnVegetables()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(5f, 10f));
+
+            float spawnX = Random.Range(-5f, 5f);
+            float spawnZ = FindPlayerPosition() + 20f;
+
+            
+            GameObject selectedVegetablePrefab = vegetablePrefabs[Random.Range(0, vegetablePrefabs.Length)];
+
+            Instantiate(selectedVegetablePrefab, new Vector3(spawnX, 0.5f, spawnZ), Quaternion.identity);
+        }
+    }
+
+    private float FindPlayerPosition()
+    {
+        GameObject player = GameObject.Find("Player");
+
+        if (player != null)
+        {
+            return player.transform.position.z;
+        }
+
+        return 0f; 
+    }
+
+    public void CollectVegetable(int amount)
+    {
+        score += amount;
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
 
 
     private void MoveLeft()
@@ -83,7 +148,3 @@ public class GameManager : MonoBehaviour
         Debug.Log("Moving center");
         prevMove = "Center";
     }
-
-
-
-}
