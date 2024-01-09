@@ -13,14 +13,18 @@ public class GenerateLevel : MonoBehaviour
     private bool creatingSection = false;
 
     private Vector3 lastObstaclePosition = Vector3.zero;
-    private List<GameObject> generatedSections = new List<GameObject>();
+    public List<GameObject> generatedSections = new List<GameObject>();
 
     void Update()
     {
         if (creatingSection == false)
         {
-            creatingSection = true;
-            StartCoroutine(GenerateSection());
+            if (generatedSections.Count < 25) {
+                creatingSection = true;
+
+                StartCoroutine(GenerateSection());
+            }
+            
         }
 
         DestroyPassedSections();

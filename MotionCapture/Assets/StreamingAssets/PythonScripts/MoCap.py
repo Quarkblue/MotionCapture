@@ -22,7 +22,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 #init udp socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverAddressPort = ("127.0.0.1", 5052)
+serverAddressPort = ("127.0.0.1", 9999)
 
 
 def detectPose(image, pose, draw=False, display=False):

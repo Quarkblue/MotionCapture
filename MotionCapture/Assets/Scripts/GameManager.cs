@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
+            Debug.Log("GameManager");
             instance = this;
         }
         else
