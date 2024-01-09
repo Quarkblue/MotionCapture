@@ -1,3 +1,4 @@
+from unittest import result
 import cv2
 import pyautogui
 from time import time
@@ -100,26 +101,51 @@ def checkLeftRight(image, results):
 import os
 import glob
 
-# Get a list of all image files in the 'images' folder.
-image_files = glob.glob('media/*.jpg')
-
-# Iterate over all image files.
-for image_file in image_files:
+def SingleTakeClassification():
+    camera_video = cv2.VideoCapture(0)
+    camera_video.set(3,1280)
+    camera_video.set(4,960)
     
-    # Read the image.
-    frame = cv2.imread(image_file)
+    ok, frame = camera_video.read()
     
-    # Get the height and width of the image.
+    if not ok:
+        return
+    
+    frame = cv2.flip(frame, 1)
+    
     frame_height, frame_width, _ = frame.shape
     
-    # Perform the pose detection on the frame.
     frame, results = detectPose(frame, pose_video, draw=True)
     
-    # Check if the pose landmarks in the frame are detected.
     if results.pose_landmarks:
-            
-        # Check the horizontal position of the person in the frame.
+        
         position = checkLeftRight(frame, results)
         
-        # Print the position to the console.
-        print(f'Position in {os.path.basename(image_file)}: {position}')
+        return position
+
+
+SingleTakeClassification()
+
+# Get a list of all image files in the 'images' folder.
+# image_files = glob.glob('media/*.jpg')
+
+# # Iterate over all image files.
+# for image_file in image_files:
+    
+#     # Read the image.
+#     frame = cv2.imread(image_file)
+    
+#     # Get the height and width of the image.
+#     frame_height, frame_width, _ = frame.shape
+    
+#     # Perform the pose detection on the frame.
+#     frame, results = detectPose(frame, pose_video, draw=True)
+    
+#     # Check if the pose landmarks in the frame are detected.
+#     if results.pose_landmarks:
+            
+#         # Check the horizontal position of the person in the frame.
+#         position = checkLeftRight(frame, results)
+        
+#         # Print the position to the console.
+#         print(f'Position in {os.path.basename(image_file)}: {position}')

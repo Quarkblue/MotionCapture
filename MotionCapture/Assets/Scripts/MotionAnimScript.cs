@@ -42,7 +42,7 @@ public class MotionAnimScript : MonoBehaviour
 
         for (int i = 0; i <= 32; i++)
         {
-            Debug.Log(points[0 + i * 3]);
+            //Debug.Log(points[0 + i * 3]);
             float x = float.Parse(points[0 + i * 3]) / 100;
             float y = float.Parse(points[1 + i * 3]) / 100;
             float z = float.Parse(points[2 + i * 3]) / 300;
