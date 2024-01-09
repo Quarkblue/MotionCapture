@@ -42,4 +42,10 @@ public class PlayerMove : MonoBehaviour
         currentLane = newLane;
         isShifting = false;
     }
+
+    public void Move(int direction)
+    {
+        StartCoroutine(ShiftLaneCoroutine(direction));
+    }
+
 }

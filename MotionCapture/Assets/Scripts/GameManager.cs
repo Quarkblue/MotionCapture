@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] vegetablePrefabs;
 
+
+    public PlayerMove playerMoveScript;
+
+    
     private void OnEnable()
     {
         EventManager.OnRightBend += MoveRight;
@@ -48,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     //Start is called before the first frame update
     void Start()
-    {
+    { 
+
         if (Instance == null)
         {
             Instance = this;
@@ -136,18 +141,29 @@ public class GameManager : MonoBehaviour
     private void MoveLeft()
     {
         Debug.Log("Moving left");
+        playerMoveScript.Move(-1);
         prevMove = "Left";
     }
 
     private void MoveRight()
     {
         Debug.Log("Moving right");
+        playerMoveScript.Move(1);
+
         prevMove = "Right";
     }
 
     private void MoveCenter()
     {
         Debug.Log("Moving center");
+        if(prevMove == "Left")
+        {
+            playerMoveScript.Move(1);
+        }
+        else if (prevMove == "Right")
+        {
+            playerMoveScript.Move(-1);
+        }
         prevMove = "Center";
     }
 }
