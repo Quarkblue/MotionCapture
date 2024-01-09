@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
-    public GameObject[] vegetablePrefabs; 
+    public GameObject[] vegetablePrefabs;
 
     private void OnEnable()
     {
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         EventManager.OnCenterBend += MoveCenter;
 
     }
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -59,21 +59,23 @@ public class GameManager : MonoBehaviour
         }
 
         prevMove = "";
-        
+
         StartCoroutine(SpawnVegetables());
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(movement == "Center" && movement != prevMove)
+        if (movement == "Center" && movement != prevMove)
         {
             EventManager.CenterBendEvent();
-        }else if(movement == "Left" && movement != prevMove)
+        }
+        else if (movement == "Left" && movement != prevMove)
         {
             EventManager.LeftBendEvent();
-        }else if(movement == "Right" && movement != prevMove)
+        }
+        else if (movement == "Right" && movement != prevMove)
         {
             EventManager.RightBendEvent();
         }
@@ -87,18 +89,18 @@ public class GameManager : MonoBehaviour
         EventManager.OnLeftBend -= MoveLeft;
         EventManager.OnCenterBend -= MoveCenter;
     }
-    
+
     private IEnumerator SpawnVegetables()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(5f, 10f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 10f));
 
-            float spawnX = Random.Range(-5f, 5f);
+            float spawnX = UnityEngine.Random.Range(-5f, 5f);
             float spawnZ = FindPlayerPosition() + 20f;
 
-            
-            GameObject selectedVegetablePrefab = vegetablePrefabs[Random.Range(0, vegetablePrefabs.Length)];
+
+            GameObject selectedVegetablePrefab = vegetablePrefabs[UnityEngine.Random.Range(0, vegetablePrefabs.Length)];
 
             Instantiate(selectedVegetablePrefab, new Vector3(spawnX, 0.5f, spawnZ), Quaternion.identity);
         }
@@ -113,7 +115,7 @@ public class GameManager : MonoBehaviour
             return player.transform.position.z;
         }
 
-        return 0f; 
+        return 0f;
     }
 
     public void CollectVegetable(int amount)
@@ -148,3 +150,4 @@ public class GameManager : MonoBehaviour
         Debug.Log("Moving center");
         prevMove = "Center";
     }
+}
