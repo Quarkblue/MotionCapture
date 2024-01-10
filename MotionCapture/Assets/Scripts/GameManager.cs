@@ -7,6 +7,8 @@ using System;
 using System.IO;
 using Unity.VisualScripting;
 using TMPro;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +30,12 @@ public class GameManager : MonoBehaviour
 
 
     public PlayerMove playerMoveScript;
+
+    public int timer;
+
+    public bool isPaused = false;
+
+    public GameObject pauseMenu;
 
     
     private void OnEnable()
@@ -63,27 +71,43 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-
+        Time.timeScale = 0;
         prevMove = "";
-
+        isPaused = false;
+        StartCoroutine(WaitOnes());
         StartCoroutine(SpawnVegetables());
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (movement == "Center" && movement != prevMove)
+        if (timer <= 0)
         {
-            EventManager.CenterBendEvent();
-        }
-        else if (movement == "Left" && movement != prevMove)
-        {
-            EventManager.LeftBendEvent();
-        }
-        else if (movement == "Right" && movement != prevMove)
-        {
-            EventManager.RightBendEvent();
+            if (isPaused == false)
+            {
+                Time.timeScale = 1;
+            }
+            if (movement == "Center" && movement != prevMove)
+            {
+                EventManager.CenterBendEvent();
+            }
+            else if (movement == "Left" && movement != prevMove)
+            {
+                EventManager.LeftBendEvent();
+            }
+            else if (movement == "Right" && movement != prevMove)
+            {
+                EventManager.RightBendEvent();
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("Pause");
+                PauseUnPause();
+            }
+
         }
     }
 
@@ -96,9 +120,18 @@ public class GameManager : MonoBehaviour
         EventManager.OnCenterBend -= MoveCenter;
     }
 
+    private IEnumerator WaitOnes()
+    {
+        while (timer >0 && true)
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            timer--;
+        }
+    }
+
     private IEnumerator SpawnVegetables()
     {
-        while (true)
+        while (true && timer <=0)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 10f));
 
@@ -138,6 +171,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PauseUnPause()
+    {
+        if(isPaused == false)
+        {
+            isPaused = true;
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            isPaused = false;
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
+        
+    }
 
     private void MoveLeft()
     {
