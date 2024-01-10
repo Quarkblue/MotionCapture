@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Vegetables : MonoBehaviour
@@ -9,8 +8,17 @@ public class Vegetables : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.CollectVegetable(scoreValue);
-            Destroy(gameObject);
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.CollectVegetable(scoreValue);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.LogError("GameManager not found in the scene.");
+            }
         }
     }
 }

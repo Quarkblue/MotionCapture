@@ -3,55 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Python.Runtime;
-using System;
+using TMPro;
 using System.IO;
 using Unity.VisualScripting;
-using TMPro;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    //dynamic MoCapModule;
-
     public bool StartRecieving = true;
     public static GameManager Instance;
     public bool stopRecieving = false;
     public string movement;
     public string prevMove;
 
-
-    public static GameManager instance;
-
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
     public GameObject[] vegetablePrefabs;
-
-
     public PlayerMove playerMoveScript;
 
     public int timer;
-
     public bool isPaused = false;
-
     public GameObject pauseMenu;
 
-    
     private void OnEnable()
     {
         EventManager.OnRightBend += MoveRight;
         EventManager.OnLeftBend += MoveLeft;
         EventManager.OnCenterBend += MoveCenter;
-
     }
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
             Debug.Log("GameManager");
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -59,28 +47,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Start is called before the first frame update
     void Start()
-    { 
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+    {
         Time.timeScale = 0;
         prevMove = "";
         isPaused = false;
         StartCoroutine(WaitOnes());
         StartCoroutine(SpawnVegetables());
-
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timer <= 0)
@@ -102,15 +77,13 @@ public class GameManager : MonoBehaviour
                 EventManager.RightBendEvent();
             }
 
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Debug.Log("Pause");
                 PauseUnPause();
             }
-
         }
     }
-
 
     private void OnDisable()
     {
@@ -122,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitOnes()
     {
-        while (timer >0 && true)
+        while (timer > 0 && true)
         {
             yield return new WaitForSecondsRealtime(1f);
             timer--;
@@ -131,13 +104,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnVegetables()
     {
-        while (true && timer <=0)
+        while (true && timer <= 0)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 10f));
 
             float spawnX = UnityEngine.Random.Range(-5f, 5f);
             float spawnZ = FindPlayerPosition() + 20f;
-
 
             GameObject selectedVegetablePrefab = vegetablePrefabs[UnityEngine.Random.Range(0, vegetablePrefabs.Length)];
 
@@ -173,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseUnPause()
     {
-        if(isPaused == false)
+        if (isPaused == false)
         {
             isPaused = true;
             Time.timeScale = 0;
@@ -185,7 +157,6 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
         }
-        
     }
 
     private void MoveLeft()
@@ -206,7 +177,7 @@ public class GameManager : MonoBehaviour
     private void MoveCenter()
     {
         Debug.Log("Moving center");
-        if(prevMove == "Left")
+        if (prevMove == "Left")
         {
             playerMoveScript.Move(1);
         }
