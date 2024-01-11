@@ -13,6 +13,9 @@ public class EventManager : MonoBehaviour
     public delegate void CenterBend();
     public static event CenterBend OnCenterBend;
 
+    public delegate void GameOver();
+    public static event GameOver OnGameOver;
+
 
 
     // Start is called before the first frame update
@@ -50,6 +53,14 @@ public class EventManager : MonoBehaviour
         if (OnCenterBend != null)
         {
             OnCenterBend();
+        }
+    }
+
+    public static void GameOverEvent()
+    {
+        if (OnGameOver != null)
+        {
+            OnGameOver();
         }
     }
 

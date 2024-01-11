@@ -15,6 +15,11 @@ public class GenerateLevel : MonoBehaviour
     private Vector3 lastObstaclePosition = Vector3.zero;
     public List<GameObject> generatedSections = new List<GameObject>();
 
+
+    private void OnEnable()
+    {
+        EventManager.OnGameOver += GameOver;
+    }
     void Update()
     {
         if (creatingSection == false)
@@ -111,15 +116,6 @@ public class GenerateLevel : MonoBehaviour
         // Additional game over logic can be added here if needed
         Debug.Log("Game Over");
 
-        // Restart the game after a delay (adjust as needed)
-        StartCoroutine(RestartGameAfterDelay(2f));
-    }
-
-    IEnumerator RestartGameAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        // Reload the current scene to restart the game
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.isGameOver = true;
     }
 }

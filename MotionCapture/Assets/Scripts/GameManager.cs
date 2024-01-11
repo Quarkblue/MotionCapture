@@ -27,15 +27,21 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public GameObject pauseMenu;
 
+    public bool isGameOver;
+
+
+
     private void OnEnable()
     {
         EventManager.OnRightBend += MoveRight;
         EventManager.OnLeftBend += MoveLeft;
         EventManager.OnCenterBend += MoveCenter;
+        EventManager.OnGameOver += OnGameOver;
     }
 
     private void Awake()
     {
+        isGameOver = false;
         if (Instance == null)
         {
             Debug.Log("GameManager");
@@ -58,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (timer <= 0)
+        if (timer <= 0 && !isGameOver)
         {
             if (isPaused == false)
             {
@@ -82,6 +88,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Pause");
                 PauseUnPause();
             }
+        }else if (isGameOver)
+        {
+            EventManager.GameOverEvent();
         }
     }
 
@@ -187,4 +196,20 @@ public class GameManager : MonoBehaviour
         }
         prevMove = "Center";
     }
+
+    public void OnGameOver()
+    {
+        SaveDataInCSV();
+        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.SetFloat("Time", timer);
+        PlayerPrefs.Save();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+    }
+
+    public void SaveDataInCSV()
+    {
+        StreamWriter sw = new StreamWriter($"{Application.streamingAssetsPath}/UserData/User.csv");
+        sw.WriteLine("Paitient Name,ID,Score,Time Take");
+    }
+
 }
