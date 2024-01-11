@@ -134,6 +134,7 @@ def videoClassification():
     camera_video = cv2.VideoCapture(0)
     camera_video.set(3,1280)
     camera_video.set(4,960)
+    flag = False
     while camera_video.isOpened():
     
         # Read a frame.
@@ -159,7 +160,9 @@ def videoClassification():
             position = checkLeftRight(frame, results)
             
             # Print the position to the console.
-            print("sending data to unity =>", position)
+            if(not flag):
+                print("#############Started Capturing#############")
+                flag = True
             sock.sendto(str.encode(str("Hello from python")), serverAddressPort)
             sock.sendto(str.encode(str(position)), serverAddressPort)
 

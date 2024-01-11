@@ -65,4 +65,8 @@ public class UDPRecieve : MonoBehaviour
         }
     }
 
+    void OnDisable(){
+        recieveThread.Abort();
+    }
+
 }
