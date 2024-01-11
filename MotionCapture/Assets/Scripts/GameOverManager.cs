@@ -13,7 +13,7 @@ public class GameOverManager : MonoBehaviour
     void Start()
     {
         ScoreTxt.GetComponent<TMPro.TextMeshProUGUI>().text = PlayerPrefs.GetInt("Score").ToString();
-        TimeTxt.GetComponent<TMPro.TextMeshProUGUI>().text =  PlayerPrefs.GetFloat("TimeTaken").ToString();
+        TimeTxt.GetComponent<TMPro.TextMeshProUGUI>().text =  PlayerPrefs.GetString("Time").ToString();
     }
 
     // Update is called once per frame

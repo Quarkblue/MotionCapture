@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
         EventManager.OnRightBend -= MoveRight;
         EventManager.OnLeftBend -= MoveLeft;
         EventManager.OnCenterBend -= MoveCenter;
+        EventManager.OnGameOver -= OnGameOver;
     }
 
     private IEnumerator WaitOnes()
@@ -201,7 +202,7 @@ public class GameManager : MonoBehaviour
     {
         SaveDataInCSV();
         PlayerPrefs.SetInt("Score", score);
-        PlayerPrefs.SetFloat("Time", timer);
+        PlayerPrefs.SetString("Time", ScoringSystem.finalTime);
         PlayerPrefs.Save();
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
     }

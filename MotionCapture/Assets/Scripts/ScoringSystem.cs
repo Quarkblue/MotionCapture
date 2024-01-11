@@ -13,6 +13,8 @@ public class ScoringSystem : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI timerText;
 
+    public static string finalTime;
+
     private void OnTriggerEnter(Collider other) 
     {
         if (other.tag == "veg")
@@ -30,8 +32,8 @@ public class ScoringSystem : MonoBehaviour
 
         string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
 
-
-
         timerText.text = $"Timer: {niceTime}";
+        finalTime = niceTime;
     }
+
 }
