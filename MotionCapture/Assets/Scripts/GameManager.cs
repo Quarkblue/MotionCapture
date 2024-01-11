@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        PlayerPrefs.DeleteAll();
     }
 
     void Start()
@@ -200,17 +201,46 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver()
     {
-        SaveDataInCSV();
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetString("Time", ScoringSystem.finalTime);
         PlayerPrefs.Save();
+        SaveDataInCSV();
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
     }
 
     public void SaveDataInCSV()
     {
-        StreamWriter sw = new StreamWriter($"{Application.streamingAssetsPath}/UserData/User.csv");
-        sw.WriteLine("Paitient Name,ID,Score,Time Take");
+
+        string filePath = $"{Application.streamingAssetsPath}/UserData/User.csv";
+        if (!File.Exists(filePath))
+        {
+            using (StreamWriter sw = File.CreateText(filePath))
+            {
+                sw.Write("Paitient Name,ID,Score,Time Take");
+                string data = $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}";
+                sw.Write(data);
+                sw.Flush();
+                sw.Close();
+            }
+        }
+        else
+        {
+            StreamReader sr = new StreamReader(filePath);
+            string prevData = sr.ReadToEnd();
+            sr.Close();
+            string data = prevData + $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}";
+            Debug.Log(data);
+            Debug.Log($"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}");
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                sw.Write(data);
+                sw.Flush();
+                sw.Close();
+            }
+        }
+        
+        
+        
     }
 
 }
