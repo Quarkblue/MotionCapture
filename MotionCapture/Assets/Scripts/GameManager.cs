@@ -227,8 +227,8 @@ public class GameManager : MonoBehaviour
         {
             using (StreamWriter sw = File.CreateText(filePath))
             {
-                sw.Write("Paitient Name,ID,Score,Time Take");
-                string data = $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}";
+                sw.Write("Paitient Name,ID,Score,Time Take,Game Speed");
+                string data = $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")},{playerMoveScript.moveSpeed}";
                 sw.Write(data);
                 sw.Flush();
                 sw.Close();
@@ -239,7 +239,7 @@ public class GameManager : MonoBehaviour
             StreamReader sr = new StreamReader(filePath);
             string prevData = sr.ReadToEnd();
             sr.Close();
-            string data = prevData + $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}";
+            string data = prevData + $"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")},{playerMoveScript.moveSpeed}";
             Debug.Log(data);
             Debug.Log($"\nRandom,123,{PlayerPrefs.GetInt("Score")},{PlayerPrefs.GetString("Time")}");
             using (StreamWriter sw = new StreamWriter(filePath))
