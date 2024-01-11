@@ -22,21 +22,29 @@ public class GenerateLevel : MonoBehaviour
     }
     void Update()
     {
-        if (creatingSection == false)
+        if (GameManager.Instance.GameStatus != 0)
         {
-            if (generatedSections.Count < 25) {
-                creatingSection = true;
+            if (creatingSection == false)
+            {
+                if (generatedSections.Count < 25)
+                {
+                    creatingSection = true;
 
-                StartCoroutine(GenerateSection());
+                    StartCoroutine(GenerateSection());
+                }
+
             }
-            
-        }
 
-        DestroyPassedSections();
+            DestroyPassedSections();
+        }
     }
 
     IEnumerator GenerateSection()
     {
+        if(GameManager.Instance.GameStatus == 0)
+        {
+            yield break;
+        }
         int secNum = Random.Range(0, sectionPrefabs.Length);
         GameObject newSection = Instantiate(sectionPrefabs[secNum], new Vector3(3, 0, zPos), Quaternion.identity);
         generatedSections.Add(newSection);

@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver;
     public int speed;
 
+    public int GameStatus = 0;  // 1 running , 0 over
 
 
     private void OnEnable()
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        GameStatus = 1;
         Time.timeScale = 0;
         prevMove = "";
         isPaused = false;
@@ -212,6 +214,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver()
     {
+        GameStatus = 0;
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetString("Time", ScoringSystem.finalTime);
         PlayerPrefs.Save();
