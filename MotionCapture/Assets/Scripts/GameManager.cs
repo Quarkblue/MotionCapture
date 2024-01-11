@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
 
     public bool isGameOver;
+    public int speed;
 
 
 
@@ -41,6 +42,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (PlayerPrefs.HasKey("Speed"))
+        {
+            speed = PlayerPrefs.GetInt("Speed");
+        }
+        else
+        {
+            speed = 5;
+        }
         isGameOver = false;
         if (Instance == null)
         {
@@ -61,6 +70,8 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         StartCoroutine(WaitOnes());
         StartCoroutine(SpawnVegetables());
+        PlayerMove playerMoveScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>();
+        playerMoveScript.moveSpeed = speed;
     }
 
     void Update()
