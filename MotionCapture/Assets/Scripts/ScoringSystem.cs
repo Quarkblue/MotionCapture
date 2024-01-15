@@ -14,11 +14,18 @@ public class ScoringSystem : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     public static string finalTime;
+    public SFX_handler sfx;
+
+    private void Start()
+    {
+        sfx = GetComponent<SFX_handler>();
+    }
 
     private void OnTriggerEnter(Collider other) 
     {
         if (other.tag == "veg")
         {
+            sfx.PlayAudio("Point");
             score++;
             text.text = $"Score: {score}";
         }

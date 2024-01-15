@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         if (Instance == null)
         {
-            Debug.Log("GameManager");
             Instance = this;
         }
         else
