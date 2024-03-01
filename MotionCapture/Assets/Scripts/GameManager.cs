@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetString("Time", ScoringSystem.finalTime);
         PlayerPrefs.Save();
-        SaveDataInCSV();
+        //SaveDataInCSV();
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
     }
 
