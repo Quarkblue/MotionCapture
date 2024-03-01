@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: 9e55dfdc5bd35724599a704803bfffcd
   - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: a6d08275130dec249b245411cae72907
-  - enabled: 1
     path: Assets/Scenes/Settingpage.unity
     guid: a2588814cf013e546bed73b5e6b5a36b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 02d017fc0c98ff049a80c50181efd572
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

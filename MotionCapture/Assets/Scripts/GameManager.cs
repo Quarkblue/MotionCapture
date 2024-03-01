@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public string movement;
     public string prevMove;
 
+    public TextMeshProUGUI countdown;
+
     public TextMeshProUGUI scoreText;
     private int score = 0;
 
@@ -69,6 +71,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         prevMove = "";
         isPaused = false;
+        countdown.text = timer.ToString();
+        countdown.gameObject.SetActive(true);
         StartCoroutine(WaitOnes());
         StartCoroutine(SpawnVegetables());
         PlayerMove playerMoveScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMove>();
@@ -81,6 +85,7 @@ public class GameManager : MonoBehaviour
         {
             if (isPaused == false)
             {
+                countdown.gameObject.SetActive(false);
                 Time.timeScale = 1;
             }
             if (movement == "Center" && movement != prevMove)
@@ -122,6 +127,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(1f);
             timer--;
+            countdown.text = timer.ToString();
         }
     }
 
@@ -216,6 +222,7 @@ public class GameManager : MonoBehaviour
         GameStatus = 0;
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetString("Time", ScoringSystem.finalTime);
+        PlayerPrefs.SetInt("Speed", speed);
         PlayerPrefs.Save();
         //SaveDataInCSV();
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
